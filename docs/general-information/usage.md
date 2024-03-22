@@ -28,7 +28,7 @@ Simple Installation
 
 4. Run the sample tests.
 5. You can try to write a simple test yourself.
-6. For an in-depth revision of all framework features you can check the [**official documentation**](http://docs.java.bellatrix.solutions/web-automation/)
+6. For an in-depth revision of all framework features you can check the [**official documentation**](http://docs.javascript.bellatrix.solutions/web-automation/)
 
 Release Strategy
 --------
