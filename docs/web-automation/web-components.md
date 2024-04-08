@@ -12,126 +12,105 @@ anchors:
 ---
 Example
 -------
-```java
+```typescript
 @Test
-public void purchaseRocket() {
-    app().navigate().to("http://demos.bellatrix.solutions/");
+async purchaseRocket() {
+  await this.app.navigation.navigate('https://demos.bellatrix.solutions/');
 
-    Select sortDropDown = app().create().byNameEndingWith(Select.class, "orderby");
-    sortDropDown.selectByText("Sort by price: low to high");
+  const sortDropDown = this.app.create(Select).byNameEndingWith('orderby');
+  await sortDropDown.selectByText('Sort by price: low to high');
 
-    Anchor protonMReadMoreButton =
-    app().create().byInnerTextContaining(Anchor.class, "Read more");
+  const protonMReadMoreButton = this.app.create(Anchor).byInnerTextContaining('Read more');
+  await protonMReadMoreButton.hover();
 
-    protonMReadMoreButton.hover();
+  const addToCartFalcon9 = this.app.create(Anchor).byAttributeContaining('data-product_id', '28');
+  await addToCartFalcon9.click();
 
-    Anchor addToCartFalcon9 =
-    app().create().byAttributeContaining(Anchor.class, "data-product_id", "28").toBeClickable();
-    addToCartFalcon9.focus();
-    addToCartFalcon9.click();
+  const viewCartButton = this.app.create(Anchor).byClassContaining('added_to_cart wc-forward');
+  await viewCartButton.click();
 
-    Anchor viewCartButton =
-    app().create().byClassContaining(Anchor.class, "added_to_cart wc-forward").toBeClickable();
-    viewCartButton.click();
+  const couponCodeTextField = this.app.create(TextField).byId('coupon_code');
+  await couponCodeTextField.setText('happybirthday');
 
-    TextField couponCodeTextField = app().create().byId(TextField.class, "coupon_code");
+  const applyCouponButton = this.app.create(Button).byValueContaining('Apply coupon');
+  await applyCouponButton.click();
 
-    couponCodeTextField.setText("happybirthday");
+  const messageAlert = this.app.create(Button).byClassContaining('woocommerce_message');
+  messageAlert.wait.toBeVisible();
 
-    Button applyCouponButton = app().create().byValueContaining(Button.class, "Apply coupon");
-    applyCouponButton.click();
+  await messageAlert.validate('innerText').is('Coupon code applied successfully.');
 
-    Div messageAlert = app().create().byClassContaining(Div.class, "woocommerce-message");
+  const quantityBox = this.app.create(NumberInput).byClassContaining('input-text qty text');
+  await quantityBox.setNumber(0);
+  await quantityBox.setNumber(2);
 
-    messageAlert.toBeVisible().waitToBe();
+  const updateCart = this.app.create(Button).byValueContaining('Update cart');
+  await updateCart.click();
 
-    messageAlert.validateTextIs("Coupon code applied successfully.");
+  const totalSpan = this.app.create(Span).byXpath(`//*[@class='order-total']//span`);
+  await totalSpan.validate('innerText').is('95.00€');
 
-    NumberInput quantityBox = app().create().byClassContaining(NumberInput.class, "input-text qty text");
+  const proceedToCheckout = this.app.create(Anchor).byClassContaining('checkout-button button alt wc-forward');
+  await proceedToCheckout.click();
 
-    quantityBox.setNumber(0);
-    quantityBox.setNumber(2);
+  const billingDetailsHeading = this.app.create(Heading).byInnerTextContaining('Billing details');
+  billingDetailsHeading.wait.toBeVisible();
 
-    Button updateCart = app().create().byValueContaining(Button.class, "Update cart").toBeClickable();
-    updateCart.click();
+  const showLogin = this.app.create(Anchor).byInnerTextContaining('Click here to login');
+  await showLogin.validate('href').is('https://demos.bellatrix.solutions/checkout/#');
+  
+  const orderCommentsTextArea = this.app.create(TextArea).byId('order_comments');
+  await orderCommentsTextArea.scrollToVisible();
+  await orderCommentsTextArea.setText('Please send the rocket to my door step!');
 
-    Span totalSpan = app().create().byXPath(Span.class, "//*[@class='order-total']//span");
+  const billingFirstName = this.app.create(TextField).byId("billing_first_name");
+  billingFirstName.setText('In');
 
-    totalSpan.validateTextIs("95.00€");
+  const billingLastName = this.app.create(TextField).byId("billing_last_name");
+  billingLastName.setText('DeepThought');
 
-    Anchor proceedToCheckout =
-    app().create().byClassContaining(Anchor.class, "checkout-button button alt wc-forward");
-    proceedToCheckout.click();
+  const billingCompany = this.app.create(TextField).byId("billing_company");
+  billingCompany.setText('Automate The Planet Ltd.');
 
-    Heading billingDetailsHeading = app().create().byInnerTextContaining(Heading.class, "Billing details");
+  const billingCountry = this.app.create(Select).byId('billing_country');
+  billingCountry.selectByText('Bulgaria');
 
-    billingDetailsHeading.toBeVisible().waitToBe();
+  const billingAddress1 = this.app.create(TextField).byId("billing_address_1");
+  Assert.areEqual(await billingAddress1.getPlaceholder(), 'House number and street name');
+  billingAddress1.setText('bul. Yerusalim 5');
 
-    Anchor showLogin = app().create().byInnerTextContaining(Anchor.class, "Click here to login");
+  const billingAddress2 = this.app.create(TextField).byId("billing_address_2");
+  billingAddress2.setText('bul. Yerusalim 6');
 
-    showLogin.validateHrefIs("http://demos.bellatrix.solutions/checkout/#");
-    showLogin.validateClassIs("showlogin");
+  const billingCity = this.app.create(TextField).byId('billing_city');
+  billingCity.setText('Sofia');
 
-    TextArea orderCommentsTextArea = app().create().byId(TextArea.class, "order_comments");
+  const billingState = this.app.create(Select).byId('billing_state');
+  billingState.selectByText('Sofia-Grad');
 
-    orderCommentsTextArea.scrollToVisible();
-    orderCommentsTextArea.setText("Please send the rocket to my door step!");
+  const billingZip = this.app.create(TextField).byId('billing_postcode');
+  billingZip.setText('1000');
 
-    TextField billingFirstName = app().create().byId(TextField.class, "billing_first_name");
-    billingFirstName.setText("In");
+  const billingPhone = this.app.create(PhoneField).byId('billing_phone');
+  billingPhone.setPhone('+00359894646464');
 
-    TextField billingLastName = app().create().byId(TextField.class, "billing_last_name");
-    billingLastName.setText("Deepthought");
+  const billingEmail = this.app.create(EmailField).byId('billing_email');
+  billingEmail.setEmail('info@bellatrix.solutions');
 
-    TextField billingCompany = app().create().byId(TextField.class, "billing_company");
-    billingCompany.setText("Automate The Planet Ltd.");
+  const createAccountCheckBox = this.app.create(CheckBox).byId('createaccount');
+  await createAccountCheckBox.check();
 
-    Select billingCountry = app().create().byId(Select.class, "billing_country");
-    billingCountry.selectByText("Bulgaria");
-
-    TextField billingAddress1 = app().create().byId(TextField.class, "billing_address_1");
-
-    Assert.assertEquals(billingAddress1.getPlaceholder(), "House number and street name");
-    billingAddress1.setText("bul. Yerusalim 5");
-
-    TextField billingAddress2 = app().create().byId(TextField.class, "billing_address_2");
-    billingAddress2.setText("bul. Yerusalim 6");
-
-    TextField billingCity = app().create().byId(TextField.class, "billing_city");
-    billingCity.setText("Sofia");
-
-    Select billingState =
-    app().create().byId(Select.class, "billing_state").toBeVisible().toBeClickable();
-    billingState.selectByText("Sofia-Grad");
-
-    TextField billingZip = app().create().byId(TextField.class, "billing_postcode");
-    billingZip.setText("1000");
-
-    PhoneField billingPhone = app().create().byId(PhoneField.class, "billing_phone");
-
-    billingPhone.setPhone("+00359894646464");
-
-    EmailField billingEmail = app().create().byId(EmailField.class, "billing_email");
-
-    billingEmail.setEmail("info@bellatrix.solutions");
-
-    CheckBox createAccountCheckBox = app().create().byId(CheckBox.class, "createaccount");
-
-    createAccountCheckBox.check();
-
-    RadioButton checkPaymentsRadioButton =
-    app().create().byAttributeContaining(RadioButton.class, "for", "payment_method_cheque");
-
-    checkPaymentsRadioButton.click();
+  const checkPaymentsRadioButton = this.app.create(RadioButton).byAttributeContaining('for', 'payment_method_cheque');
+  checkPaymentsRadioButton.click();
 }
 ```
 
 Explanations
 ------------
 As mentioned before BELLATRIX exposes 30+ web components. All of them implement Proxy design pattern which means that they are not located immediately when they are created. Another benefit is that each of them includes only the actions that you should be able to do with the specific control and nothing more.
-For example, you cannot type into a button. Moreover, this way all of the actions has meaningful names – **Type** not **SendKeys** as in vanilla **WebDriver**.
-```java
-Select sortDropDown = app().create().byNameEndingWith(Select.class, "orderby");
+For example, you cannot type into a button. Moreover, this way all of the actions has meaningful names – **setText** not **sendKeys** as in vanilla **WebDriver**, or **fill** as in vanilla **Playwright**
+```typescript
+const sortDropDown = this.app.create(Select).byNameEndingWith('orderby');
 ```
 Create methods accept a generic parameter the type of the web control. Then only the methods for this specific control are accessible. Here we tell BELLATRIX to find your component by name attribute ending with 'orderby'.
 
@@ -144,132 +123,125 @@ Create methods accept a generic parameter the type of the web control. Then only
    <option value="price-desc">Sort by price: high to low</option>
 </select>
 ```
-```java
-sortDropDown.selectByText("Sort by price: low to high");
+```typescript
+await sortDropDown.selectByText('Sort by price: low to high');
 ```
-You can select from select inputs by text (**selectByText**) or index (**selectByIndex**). Also, you can get the selected option through **getSelected** method.
+You can select from select inputs by text (**selectByText**), by index (**selectByIndex**), or by value (**selectByValue**). Also, you can get the selected option through **getSelected** method.
 ```html
 <a href='http://demos.bellatrix.solutions/product/proton-m/'>Read more</a>
 ```
-```java
-Anchor protonMReadMoreButton = app().create().byInnerTextContaining(Anchor.class, "Read more");
+```typescript
+const protonMReadMoreButton = this.app.create(Anchor).byInnerTextContaining('Read more');
 ```
 Here BELLATRIX finds the first anchor component which has inner text containing the 'Read more' text.
-```java
-protonMReadMoreButton.hover();
+```typescript
+await protonMReadMoreButton.hover();
 ```
 You can Hover and Focus on most web components. Also, can invoke Click on anchors.
 ```html
 <a href="/?add-to-cart=28" data-product_id="28">Add to cart</a>
 ```
-```java
-Anchor addToCartFalcon9 = app().create().byAttributeContaining(Anchor.class, "data-product_id". "28").toBeClickable();
-addToCartFalcon9.focus();
-addToCartFalcon9.click();
+```typescript
+const addToCartFalcon9 = this.app.create(Anchor).byAttributeContaining('data-product_id', '28');
+await addToCartFalcon9.click();
 ```
-Locate components by custom attribute. BELLATRIX waits till the anchor is clickable before doing any actions.
+Locate components by custom attribute. BELLATRIX waits until the element is actionable before doing any actions, for Selenium. Playwright has this logic built-in.
 ```html
 <a href="http://demos.bellatrix.solutions/cart/" class="added_to_cart wc-forward" title="View cart">View cart</a>
 ```
-```java
-Anchor viewCartButton =
-app().create().byClassContaining(Anchor.class, "added_to_cart wc-forward").toBeClickable();
-viewCartButton.click();
+```typescript
+const viewCartButton = this.app.create(Anchor).byClassContaining('added_to_cart wc-forward');
+await viewCartButton.click();
 ```
-Find the anchor by class 'added_to_cart wc-forward' and wait for the component again to be clickable.
-```java
-TextField couponCodeTextField = app().create().byId(TextField.class, "coupon_code");
+Find the anchor by class 'added_to_cart wc-forward' and click it, after waiting for it to be clickable.
+```typescript
+const couponCodeTextField = this.app.create(TextField).byId('coupon_code');
 ```
 Find a regular text input component by id = 'coupon_code'.
-```java
-couponCodeTextField.setText("happybirthday");
+```typescript
+await couponCodeTextField.setText('happybirthday');
 ```
-Instead of using vanilla WebDriver SendKeys to set the text, use the SetText method.
+Instead of using vanilla WebDriver sendKeys or vanilla Playwright fill to set the text, use the setText method.
 ```html
 <input type="submit" class="button" name="apply_coupon" value="Apply coupon">
 ```
-```java
-Button applyCouponButton = app().create().byValueContaining(Button.class, "Apply coupon");
-applyCouponButton.click();
+```typescript
+const applyCouponButton = this.app.create(Button).byValueContaining('Apply coupon');
+await applyCouponButton.click();
 ```
 Create a button control by value attribute containing the text 'Apply coupon'. Button can be any of the following web components – input button, input submit or button.
 ```html
 <div class="woocommerce-message" role="alert">Coupon code applied successfully.</div>
 ```
-```java
-Div messageAlert = app().create().byClassContaining(Div.class, "woocommerce-message");
-messageAlert.toBeVisible().waitToBe();
+```typescript
+const messageAlert = this.app.create(Button).byClassContaining('woocommerce_message');
+messageAlert.wait.toBeVisible();
 ```
 Wait for the message DIV to show up.
-```java
-// Assert.assertEquals(billingAddress1.getPlaceholder(), "House number and street name");
+```typescript
+// Assert.areEqual(await billingAddress1.getPlaceholder(), 'House number and street name');
 ```
-Sometimes you need to verify the content of some component. However, since the asynchronous nature of websites, the text or event may not happen immediately. This makes the simple **Assert** methods + vanilla **WebDriver** useless.
+Sometimes you need to verify the content of some component. However, since the asynchronous nature of websites, the text or event may not happen immediately. Playwright has Assert methods with built-in waiting logic for which one can set the timeout, but our Selenium doesn't; This makes the simple **Assert** methods + vanilla **WebDriver** useless. 
 The commented code fails 1 from 5 times.
 To handle these situations, BELLATRIX has hundreds of Ensure methods that wait for some condition to happen before asserting.
 Bellow the statement waits for the specific text to appear and assert it.
-```java
-Div messageAlert = app().create().byClassContaining(Div.class, "woocommerce-message");
-messageAlert.validateTextIs("Coupon code applied successfully.");
+```typescript
+await messageAlert.validate('innerText').is('Coupon code applied successfully.');
 ```
 **Note**: *There are much more details about these methods in the next chapters.*
 ```html
 <input type="number" id="quantity_5ad35e76b34a2" step="1" min="0" max="" value="1" size="4" pattern="[0-9]*" inputmode="numeric">
 ```
-```java
-NumberInput quantityBox = app().create().byClassContaining(NumberInput.class, "input-text qty text");
+```typescript
+const quantityBox = this.app.create(NumberInput).byClassContaining('input-text qty text');
 ```
 Find the number input component by class 'input-text qty text'.
-```java
-NumberInput quantityBox = app().create().byClassContaining(NumberInput.class, "input-text qty text");
-quantityBox.setNumber(0);
-quantityBox.setNumber(2);
+```typescript
+await quantityBox.setNumber(0);
+await quantityBox.setNumber(2);
 ```
 For number input components, you can set the number and get most of the properties of these components.
-```java
-Heading billingDetailsHeading = app().create().byInnerTextContaining(Heading.class, "Billing details");
+```typescript
+const billingDetailsHeading = this.app.create(Heading).byInnerTextContaining('Billing details');
+billingDetailsHeading.wait.toBeVisible();
 ```
 As mentioned before, BELLATRIX has special synchronization mechanism for locating components, so usually, there is no need to wait for specific components to appear on the page. However, there may be some rare cases when you need to do it. The statement finds the heading by its inner text containing the text 'Billing details'.
-```java
-Heading billingDetailsHeading = app().create().byInnerTextContaining(Heading.class, "Billing details");
-billingDetailsHeading.toBeVisible().waitToBe();
+```typescript
+billingDetailsHeading.wait.toBeVisible();
 ```
 Wait for the heading with the above text to be visible. This means that the correct page is loaded.
-```java
-// Assert.assertEquals(showLogin.getHref(), "http://demos.bellatrix.solutions/checkout/#");
-showLogin.validateHrefIs("http://demos.bellatrix.solutions/checkout/#");
-// Assert.assertEquals(showLogin.getHtmlClass(), "showlogin");
-showLogin.validateClassIs("showlogin");
+```typescript
+// Assert.assertEqual(await showLogin.getHref(), 'http://demos.bellatrix.solutions/checkout/#');
+await showLogin.validate('href').is('https://demos.bellatrix.solutions/checkout/#');
 ```
 All web components have multiple properties for their most important attributes and ensure methods for their verification.
-```java
-TextArea orderCommentsTextArea = app().create().byId(TextArea.class, "order_comments");
-orderCommentsTextArea.scrollToVisible();
+```typescript
+const orderCommentsTextArea = this.app.create(TextArea).byId('order_comments');
+await orderCommentsTextArea.scrollToVisible();
 ```
-Here we find the order comments text area and since it is below the visible area we scroll down so that it gets visible on the video recordings. Then the text is set.
-```java
-TextField billingAddress1 = app().create().byId(TextField.class, "billing_address_1");
-Assert.assertEquals(billingAddress1.getPlaceholder(), "House number and street name");
+Here we find the order comments text area and since it is below the visible area we scroll down so that it gets visible on the video recordings. Then the text is set. One can easily set in the configuration file to enable automatic scroll before executing actions on elements that are not currently visible.
+```typescript
+const billingAddress1 = this.app.create(TextField).byId("billing_address_1");
+Assert.areEqual(await billingAddress1.getPlaceholder(), 'House number and street name');
 ```
 Through the Placeholder, you can get the default text of the control.
-```java
-PhoneField billingPhone = app().create().byId(PhoneField.class, "billing_phone");
-billingPhone.setPhone("+00359894646464");
+```typescript
+const billingPhone = this.app.create(PhoneField).byId('billing_phone');
+billingPhone.setPhone('+00359894646464');
 ```
 Create the special text field control Phone it contains some additional properties unique for this web component.
-```java
-EmailField billingEmail = app().create().byId(EmailField.class, "billing_email");
-billingEmail.setEmail("info@bellatrix.solutions");
+```typescript
+const billingEmail = this.app.create(EmailField).byId('billing_email');
+billingEmail.setEmail('info@bellatrix.solutions');
 ```
 Here we create the special text field control Email it contains some additional properties unique for this web component.
-```java
-CheckBox createAccountCheckBox = app().create().byId(CheckBox.class, "createaccount");
-createAccountCheckBox.check();
+```typescript
+const createAccountCheckBox = this.app.create(CheckBox).byId('createaccount');
+await createAccountCheckBox.check();
 ```
 You can check and uncheck checkboxes.
-```java
-RadioButton checkPaymentsRadioButton =
-app().create().byAttributeContaining(RadioButton.class, "for", "payment_method_cheque");
+```typescript
+const checkPaymentsRadioButton = this.app.create(RadioButton).byAttributeContaining('for', 'payment_method_cheque');
 checkPaymentsRadioButton.click();
 ```
 BELLATRIX finds the first RadioButton with attribute 'for' containing the value 'payment_method_cheque'. The radio buttons compared to checkboxes cannot be unchecked/unselected.
@@ -277,46 +249,33 @@ BELLATRIX finds the first RadioButton with attribute 'for' containing the value 
 Full List of All Supported Web Components
 ---------------------------------------
 ### WebComponent ###
-- createBy
-- createAllBy
+- create
+- wait
 - getAttribute
-- setAttribute 
 - scrollToVisible
-- waitToBe
 - isVisible
-- getHtmlClass
-- getComponentName
-- getHtmlClass
-- getCssValue
-- getTitle
-- getTabIndex
-- getAccessKey
-- getStyle
-- getDir
-- getLang
 - hover
-- focus
 
 **Note**: *All other components have access to the above methods and properties*
 
 Component | Available properties
 ------------ | -------------
-Anchor | click, getHtml, getText, getHref, getTarget, getRel
-Button | click, getValue, isDisabled, getText
+Anchor | click, getInnerHtml, getInnerText, getHref, getTarget, getRel
+Button | click, getValue, isDisabled, getInnerText
 CheckBox | check, uncheck, isChecked, isDisabled, getValue
-Div | getHtml, getText
+Div | getInnerHtml, getInnerText
 FileInput | upload, isRequired, isMultiple, getAccept
-Frame | getName
-Heading | getText
+Frame | getName, getHref
+Heading | getInnerText
 Image | getSrc, getAlt, getHeight, getWidth, getSrcSet, getSizes, getLongDesc
-Label | getText, getHtml, getFor
-Option | isSelected, isDisabled, getText, getValue
+Label | getInnerText, getInnerHtml, getFor, getRelatedElement
+Option | isSelected, isDisabled, select, getInnerText, getValue
 RadioButton | click, isChecked, isDisabled, getValue
 Reset | click, isDisabled, getText, getValue
-Select | getSelected, getAllOptions, selectByText, selectByIndex, isDisabled, isReadonly, isRequired
-Span | getText, getHtml
-TextArea | getText, setText, isDisabled, isAutoComplete, isSpellCheck, isReadonly, isRequired, getPlaceholder, getMaxLength, getMinLength, getRows, getCols, getWrap
-TextField | getText, setText isDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMaxLength, getMinLength
+Select | getSelected, getAllOptions, selectByText, selectByIndex, selectByValue, isDisabled, isReadonly, isRequired
+Span | getInnerText, getInnerHtml
+TextArea | getInnerText, setText, isDisabled, isAutoComplete, isSpellCheck, isReadonly, isRequired, getPlaceholder, getMaxLength, getMinLength, getRows, getCols, getWrap
+TextField | getInnerText, setText isDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMaxLength, getMinLength
 
 
 ### HTML5 Components: ### 
@@ -326,12 +285,12 @@ Component | Available properties
 ColorInput | getColor, setColor, isAutoComplete, isDisabled, isRequired, getList, getValue
 DateInput | getDate, setDate, isAutoComplete, isDisabled, isReadonly, isRequired, getMin, getMax, getStep, getValue
 DateTimeInput | getTime, setTime, isAutoComplete, isDisabled, isReadonly, isRequired, getMin, getMax, getStep, getValue
-EmailField | getEmail, setEmail, isAutoComplete, isDisabled, isReadonly, isRequired, getMinLength, getMaxLength, getPlaceholder, getSizeAttribute, getValue
+EmailField | getEmail, setEmail, isAutoComplete, isDisabled, isReadonly, isRequired, getMinLength, getMaxLength, getPlaceholder, getSizeAttribute, getValue, getPattern
 MonthInput | getMonth, setMonth, isDisabled, isAutoComplete, isReadonly, isRequired, getMax, getMin, getStep, getValue
 NumberInput | getNumber, setNumber, isDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMax, getMin, getStep, getValue
 Output | getText, getHtml, getFor
 PasswordField | getPassword, setPassword, isDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMaxLenght, getMinLenght, getSize, getValue
-PhoneField | getPhone, setPhone, isDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMaxLenght, getMinLenght, getSize, getValue
+PhoneField | getPhone, setPhone, isDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMaxLenght, getMinLenght, getSize, getValue, getPattern
 Progress | getMax, getText, getValue
 RangeInput | getRange, setRange, isDisabled, isAutoComplete, isRequired, getList, getMax, getMin, getStep, getValue
 SearchField | getSearch, setSearch, IsDisabled, isAutoComplete, isReadonly, isRequired, getPlaceholder, getMaxLenght, getMinLenght, getSize, getValue

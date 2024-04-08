@@ -11,26 +11,27 @@ anchors:
 ---
 Example
 -------
-```java
-public class ProductPurchaseTests extends WebTest {
+```typescript
+@TestClass
+class ProductPurchaseTests extends WebTest {
     @Test
-    public void promotionsPageOpened_When_PromotionsButtonClicked() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
+    async promotionsPageOpened_When_PromotionsButtonClicked() {
+        await this.app.navigation.navigate('http://demos.bellatrix.solutions/');
 
-        var promotionsLink = app().create().byLinkText(Anchor.class, "Promotions");
+        const promotionsLink = this.app.create(Anchor).byLinkText('Promotions');
 
-        promotionsLink.click();
+        await promotionsLink.click();
 
-        app().browser().waitUntilPageLoadsCompletely();
+        await this.app.browser.waitUntilPageLoadsCompletely();
     }
 
     @Test
     public void blogPageOpened_When_PromotionsButtonClicked() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
+        await this.app.navigation.navigate('http://demos.bellatrix.solutions/');
 
-        var blogLink = app().create().byLinkText(Anchor.class, "Blog");
+        const blogLink = this.app.create(Anchor).byLinkText('Blog');
 
-        blogLink.click();
+        await blogLink.click();
     }
 }
 ```
@@ -38,38 +39,36 @@ public class ProductPurchaseTests extends WebTest {
 Explanations
 ------------
 
-```java
-app().navigate().to("http://demos.bellatrix.solutions/");
+```typescript
+await this.app.navigation.navigate('http://demos.bellatrix.solutions/');
 ```
-You can always navigate in each separate tests, but if all of them go to the same page, you can use the above techniques for code reuse.
-```java
-app().browser().waitUntilPageLoadsCompletely();
+You can always navigate in each separate tests, but if all of them go to the same page, you can use the techniques shown below for code reuse.
+```typescript
+await this.app.browser.waitUntilPageLoadsCompletely();
 ```
 Sometimes, some AJAX async calls are not caught natively by WebDriver. So you can use the BELLATRIX browser service's method. **waitUntilPageLoadsCompletely** which waits for these calls automatically to finish. Keep in mind that usually this is not necessary since BELLATRIX has a complex built-in mechanism for handling element waits.
 
 Depending on the types of tests you want to write there are a couple of ways to navigate to specific pages.
 In later chapters, there are more details about the different test workflow hooks. Find here two of them.
-```java
-@Override
-public void beforeClass() {
-    app().navigate().to("http://demos.bellatrix.solutions/");
+```typescript
+override async beforeAll() {
+    await this.app.navigation.navigate('http://demos.bellatrix.solutions/');
 }
 ```
-If you reuse your browser and want to navigate once to a specific page. You can use the **beforeClass** method.
+If you reuse your browser and want to navigate once to a specific page. You can use the **beforeAll** method.
 It executes once for all tests in the class.
-```java
-@Override
-public void beforeMethod() {
-    app().navigate().to("http://demos.bellatrix.solutions/");
+```typescript
+override async beforeEach() {
+    await this.app.navigation.navigate('http://demos.bellatrix.solutions/');
 }
 ```
-If you need each test to navigate each time to the same page, you can use the **beforeMethod** method.
-```java
-app().navigate().waitForPartialUrl("/blog/");
+If you need each test to navigate each time to the same page, you can use the **beforeEach** method.
+```typescript
+await this.app.navigation.waitForPartialUrl('/blog/');
 ```
 Sometimes before proceeding with searching and making actions on the next page, we need to wait for something.
 It is useful in some cases to wait for a partial URL instead hard-coding the whole URL since it can change depending on the environment. Keep in mind that usually this is not necessary since BELLATRIX has a complex built-in mechanism for handling element waits.
-```java
-app().navigate().toLocalPage("testPage.html");
+```typescript
+await this.app.navigation.navigateToLocalPage('testPage.html');
 ```
 Sometimes you may need to navigate to a local HTML file. Make sure to copy the file to the resources folder of the module with your tests files.

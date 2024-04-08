@@ -5,11 +5,14 @@ excerpt: "Learn the BELLATRIX Behaviour Driven Development (BDD) Logging works a
 date:   2018-06-2s 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/bdd-logging/
-anchors:
-  example: Example
-  explanations: Explanations
+# anchors:
+#   example: Example
+#   explanations: Explanations
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 @Test
@@ -137,4 +140,4 @@ validating Span (xpath = //*[@class='order-total']//span) inner text is '95.00â‚
 
 There are two specifics about the generation of the logs. If page objects are used, which are discussed in next chapters. Two things change.
 1. Instead of locators, the exact names of the element properties are printed.
-2. Instead of page URL, the name of the page is displayed.
+2. Instead of page URL, the name of the page is displayed. -->

@@ -5,12 +5,15 @@ excerpt: "Learn how to extend BELLATRIX web component controls using component a
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-component-action-hooks/
-anchors:
-  introduction: Introduction
-  example: Example
-  explanations: Explanations
+# anchors:
+#   introduction: Introduction
+#   example: Example
+#   explanations: Explanations
 ---
-Introduction
+Coming Soon
+-------
+
+<!-- Introduction
 ------------
 Another way to extend BELLATRIX is to use the components' hooks. This is how the BDD logging and highlighting are implemented. For each method of the component, there are two hooks – one that is called before the action and one after. For example, the available hooks for the button are:
 - **CLICKING** - an event executed before button click
@@ -136,7 +139,7 @@ public void configure() {
     LoggingButtonEvents.addEventListeners();
 }
 ```
-Once you have created the class, you need to tell BELLATRIX to use it. To do so call the **addEventListeners** method that you created in the **configure** phase.
+Once you have created the class, you need to tell BELLATRIX to use it. To do so call the **addEventListeners** method that you created in the **configure** phase. -->
 
 <!-- ```csharp
  App.RemoveElementEventHandler<DebugLoggingButtonEventHandlers>();

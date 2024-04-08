@@ -11,6 +11,7 @@ anchors:
   all-available-tobe-methods: All Available toBe Methods
   configuration: Configuration
 ---
+<!-- 
 Example
 -------
 ```java
@@ -102,4 +103,4 @@ The default timeouts that BELLATRIX uses are placed inside the **testFrameworkSe
   "elementNotToBeVisibleTimeout": "30",
   "elementToHaveContentTimeout": "15"
 }
-```
+``` -->

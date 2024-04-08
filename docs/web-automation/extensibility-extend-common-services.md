@@ -5,11 +5,14 @@ excerpt: "Learn how to extend BELLATRIX common services."
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-extend-common-services/
-anchors:
-  example: Example
-  explanations: Explanations
+# anchors:
+#   example: Example
+#   explanations: Explanations
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 public class ExtendExistingCommonServicesTests extends WebTest {
@@ -107,4 +110,4 @@ Then you can use the additional method you created since **navigate** will now r
 ```java
 app().navigate().viaJavaScript("http://demos.bellatrix.solutions/");
 ```
-Use newly added navigation though JavaScript which is not part of the original implementation of the common service.
+Use newly added navigation though JavaScript which is not part of the original implementation of the common service. -->

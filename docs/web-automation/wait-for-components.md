@@ -11,28 +11,54 @@ anchors:
 ---
 Example
 -------
-```java
+```typescript
 @Test
-public void blogPageOpened_When_PromotionsButtonClicked() {
-    app().navigate().to("http://demos.bellatrix.solutions/");
-
-    var blogLink = app().create().byLinkText(Anchor.class, "Blog");
-    ((Anchor)blogLink.toBeClickable().toBeVisible()).click();
-
-    blogLink.toBeClickable().toBeVisible().waitToBe();
+async blogPageOpened_When_PromotionsButtonClicked() {
+    await this.app.navigation.navigate('https://demos.bellatrix.solutions/');
+    const blogLink = this.app.create(Anchor).byLinkText('Blog');
+    await blogLink.wait.toBeClickable();
+    await blogLink.wait.toBeVisible();
+    await blogLink.click();
 }
 ```
 
 Explanations
 ------------
-```java
-var blogLink = app().create().byLinkText(Anchor.class, "Blog");
-((Anchor)blogLink.toBeClickable().toBeVisible()).click();
+```typescript
+await blogLink.wait.toBeClickable();
+await blogLink.wait.toBeVisible();
 ```
-Besides the ToBe methods that you can use on element creation, you have a couple of other options if you need to wait for elements. For example, if you want to reuse your element in multiple tests or if you use it through page objects (more about that in later chapters), you may not want to wait for all conditions to be executed every time. Sometimes the mentioned conditions during creation may not be correct for some specific test case. E.g. button wait to be disabled, but in most cases, you need to wait for it to be enabled. To give you more options BELLATRIX has a special method called **waitToBe**. The big difference compared to ToBe methods is that it forces BELLATRIX to locate your element immediately and wait for the condition to be satisfied.
-This is also valid syntax the conditions are performed once the **click** method is called. It is the same as placing **toBe** methods after **create().byLinkText**.
-```java
-blogLink.toBeClickable().toBeVisible().waitToBe();
+If there is a condtion you want to wait to be fulfilled before proceeding with the test, you can use the WaitService of the components. 
+
+All Available toBe Methods
+--------------------------
+### toExist ###
+```typescript
+await this.app.create(Anchor).byLinkText("Blog").wait.toExist();
 ```
-Why we have two syntaxes for almost the same thing? Because sometimes you do not need to perform an action or assertion against the element. In the above example, statement waits for the button to be clickable and visible before the click. However, in some cases, you want some element to show up but not act on it. This means the above syntax does not help you since the element is not searched in the DOM at all because of the lazy loading.
-Using the **waitToBe** method forces BELLATRIX to locate your element and wait for the condition without the need to do an action or assertion.
+Waits for the component to exist on the page. BELLATRIX always does it by default, before each method against the element.
+### toBeVisible ###
+```typescript
+await this.app.create(Anchor).byLinkText("Blog").wait.toBeVisible();
+```
+Waits for the component to be visible.
+### toBeClickable ###
+```typescript
+await this.app.create(Anchor).byLinkText("Blog").wait.toBeClickable();
+```
+Waits for the component to be clickable (may be disabled at first).
+### toBeDisabled ###
+```typescript
+await this.app.create(Anchor).byLinkText("Blog").wait.toBeDisabled();
+```
+Waits for the component to be disabled (may be clickable at first).
+### toNotBeVisible ###
+```typescript
+await this.app.create(Anchor).byLinkText("Blog").wait.toNotBeVisible();
+```
+Waits for the component to be invisible.
+### toNotExist ###
+```typescript
+await this.app.create(Anchor).byLinkText("Blog").wait.toNotExist();
+```
+Waits for the component to disappear. Usually, we use in assertion methods.

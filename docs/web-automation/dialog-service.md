@@ -11,37 +11,39 @@ anchors:
 ---
 Example
 -------
-```java
-public class DialogServiceTests extends WebTest {
+```typescript
+@TestClass
+class DialogServiceTests extends WebTest {
     @Test
-    public void acceptDialogAlert() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async acceptDialogAlert() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        var couponButton = app().create().byId(Button.class, "couponBtn");
-        couponButton.click();
+        const couponButton = this.app.create(Button).byId('couponBtn');
+        await couponButton.click();
 
-        app().dialogs().handle();
+        await this.app.dialog.accept();
     }
 
     @Test
-    public void happyBirthdayCouponDisplayed_When_ClickOnCouponButton() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async happyBirthdayCouponDisplayed_When_ClickOnCouponButton() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        var couponButton = app().create().byId(Button.class, "couponBtn");
-        couponButton.click();
+        const couponButton = this.app.create(Button).byId('couponBtn');
+        await couponButton.click();
 
-        app().dialogs().handle(a -> Assert.assertEquals(a.getText(), "Try the coupon- happybirthday"));
+        await this.app.dialog.handle(async dialog => {
+            Assert.areEqual((await dialog.getMessage()), 'Try the coupon- happbirthday');
+        });
     }
 
     @Test
-    @Ignore
-    public void dismissDialogAlert() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async dismissDialogAlert() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        var couponButton = app().create().byId(Button.class, "couponBtn");
-        couponButton.click();
-        
-        app().dialogs().handle(DialogButton.CANCEL);
+        const couponButton = this.app.create(Button).byId('couponBtn');
+        await couponButton.click();
+
+        await this.app.dialog.dismiss();
     }
 }
 ```
@@ -49,15 +51,21 @@ public class DialogServiceTests extends WebTest {
 Explanations
 ------------
 BELLATRIX gives you some methods for handling dialogs.
-```java
-app().dialogs().handle();
+```typescript
+await this.app.dialog.accept();
 ```
-You can click on the OK button and handle the alert.
-```java
-app().dialogs().handle(a -> Assert.assertEquals(a.getText(), "Try the coupon- happybirthday"));
+You can accept the alert.
+```typescript
+await this.app.dialog.handle(async dialog => {
+    Assert.areEqual((await dialog.getMessage()), 'Try the coupon- happbirthday');
+});
 ```
-You can pass an anonymous lambda function and do something with the alert.
-```java
-app().dialogs().handle(DialogButton.CANCEL);
+You can pass a lambda function and do something with the alert.
+```typescript
+await this.app.dialog.dismiss();
 ```
-You can tell the dialog service to click a different button.
+You can tell the dialog service to dismiss it.
+```typescript
+await this.app.dialog.accept('some prompt text');
+```
+You can first type in the dialog and then accept it.

@@ -10,48 +10,43 @@ anchors:
   explanations: Explanations
   configuration: Configuration
 ---
-Example
--------
-```java
-@ExecutionBrowser(browser = Browser.CHROME, browserVersion = 89, platform = Platform.WINDOWS, lifecycle = Lifecycle.REUSE_IF_STARTED)
-public class SeleniumGridTests extends WebTest {
-    @Test
-    public void promotionsPageOpened_When_PromotionsButtonClicked() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
-
-        var promotionsLink = app().create().byLinkText(Anchor.class, "Promotions");
-
-        promotionsLink.click();
-    }
-}
-```
-
 Explanations
 ------------
-```java
-@ExecutionBrowser(browser = Browser.CHROME, browserVersion = 89, platform = Platform.WINDOWS, lifecycle = Lifecycle.REUSE_IF_STARTED)
-```
-To use BELLATRIX tests with in a grid, you should use the ExecutionBrowser annotation to set the additional parameters for browser version and platform type. You can set other parameters for browser width and hight, lifecycle and etc. just like in every other test class.
+To execute BELLATRIX tests within a grid, you should configure that in the **bellatrix.config.ts** file.
 
 Configuration
 -------------
-There's an option about execution type in the **testFrameworkSettings.\<env\>.json** file under the **webSettings** section.
-```json
-"webSettings": {
-    "executionType": "grid"
+There's an option about execution type in the **bellatrix.config.ts** file under the **webSettings** section.
+```typescript
+executionType: 'local', // remote
+```
+You can set the grid URL and set some additional arguments under the **remoteExecutionSettings** section.
+```typescript
+executionSettings: {
+    browserAutomationTool: 'playwright', // playwright, selenium
+    browser: 'chrome', // chrome, firefox, safari, edge
+    viewport: { width: 1920, height: 1080 },
+    headless: false,
+    executionType: 'local', // remote
+    baseUrl: 'https://demos.bellatrix.solutions/'
+},
+remoteExecutionSettings: {
+    remoteUrl: 'localhost:4444',
+    user: '',
+    key: ''
 }
 ```
-You can set the grid URL and set some additional arguments under the **gridSettings** array, setting **providerName** to the match the name you set in **executionType**. To set additional arguments for providers such as SauceLabs, BrowserStack or CrossBrowserTesting, you can use the **arguments** array parameter.
-```json
-"gridSettings": [
-    {
-        "providerName" : "grid",
-        "url" : "http://127.0.0.1:4444/wd/hub",
-        "arguments" : [
-            {
-                "name" : "bellatrix_run"
-            }
-        ]
-    }
-]
+This is the structure for RemoteExecutionSettings:
+```typescript
+type RemoteExecutionSettings = {
+    provider: 'Selenium Grid' | 'Selenoid',
+    remoteUrl: string,
+    capabilities: Capabilities,
+    headers?: object,
+} | {
+    provider: 'LambdaTest' | 'BrowserStack',
+    capabilities: Capabilities,
+    username: string,
+    accessKey: string,
+}
 ```

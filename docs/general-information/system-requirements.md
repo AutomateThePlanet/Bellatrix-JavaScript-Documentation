@@ -8,28 +8,25 @@ permalink: /general-information/system-requirements/
 anchors:
   overview: Overview
   supported-code-editors: Supported Code Editors
-  sdks-and-frameworks-prerequisites: SDKs and Frameworks Prerequisites
+  # sdks-and-frameworks-prerequisites: SDKs and Frameworks Prerequisites
 ---
 Overview
 --------
-Both TestNG and JUnit are supported.
+Available testing framework integrations are: vitest, jasmine, mocha, jest, playwright.
+You can change them through the bellatrix configuration file that you can find in the root of the example project.
+
+Node.js Version
+---------------
+The minimum supported Node.js version is 20.6.0
 
 Supported Code Editors
 ----------------------
-The recommended code editor for writing BELLATRIX tests is IntelliJ
+The recommended code editor for writing BELLATRIX tests is Visual Studio Code
 
-NOTE: After the support for .NET Framework 5.0 and higher, Microsoft officially not support .NET Core development in older versions of Visual Studio 2015, 2017 and so on.
-
-### Other Supported Editors: ###
-- Visual Studio Code
-- IntelliJ
-- NetBeans
-- Eclipse
-
-SDKs and Frameworks Prerequisites
+<!-- SDKs and Frameworks Prerequisites
 -------------------------------- 
 We recommend to install the latest stable version of JDK.
 
 For BELLATRIX desktop modules you need to download [**WinAppDriver**](https://github.com/Microsoft/WinAppDriver/releases). You need to make sure it is started before running any BELLATRIX desktop tests.
 
-For BELLATRIX mobile modules you need to download and install [**Appium**](http://appium.io/). You need to make sure it is started before running any BELLATRIX mobile tests.
+For BELLATRIX mobile modules you need to download and install [**Appium**](http://appium.io/). You need to make sure it is started before running any BELLATRIX mobile tests. -->

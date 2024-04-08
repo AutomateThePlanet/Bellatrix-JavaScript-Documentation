@@ -14,7 +14,7 @@ anchors:
 ---
 Overview
 --------
-Customize and extend our cross-platform .NET framework to perfectly fit your needs. Start on top of hundreds of best practice features and integrations.
+Customize and extend our cross-platform Node.js framework to perfectly fit your needs. Start on top of hundreds of best practice features and integrations.
 
 Contains the full source code of BELLATRIX Test Automation Framework and Templates for faster usage
 
@@ -23,10 +23,10 @@ BELLATRIX is not a single thing it contains multiple framework libraries, extens
 Simple Installation
 ------------------
 1. Download the BELLATRIX projects as a zip file from the Code green button in the right corner.
-2. Unzip it. Open BELLATRIX-Java in IntelliJ
-3. Open one of the preconfigured modules. It works for both JUnit and TestNG without additional configuration.
+2. Unzip it. Open BELLATRIX-JavaScript in Visual Studio Code.
+3. Open terminal and type `npm ci` in the root of the project.
 
-4. Run the sample tests.
+4. In order to run the sample tests, navigate to the example folder with terminal and type `npm run test`.
 5. You can try to write a simple test yourself.
 6. For an in-depth revision of all framework features you can check the [**official documentation**](http://docs.javascript.bellatrix.solutions/web-automation/)
 

@@ -11,101 +11,68 @@ anchors:
 ---
 Example
 -------
-```java
-public class BrowserServiceTests extends WebTest {
+```typescript
+@TestClass
+class BrowserServiceTests extends WebTest {
     @Test
-    public void getCurrentUrl() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
+    async getCurrentUrl() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/');
 
-        System.out.println(app().browser().getUrl());
+        console.log(await this.app.browser.getUrl());
     }
 
     @Test
-    public void controlBrowser() {
-        pp().navigate().to("http://demos.bellatrix.solutions/");
+    async controlBrowser() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/');
 
-        app().browser().maximize();
-        
-        app().browser().back();
+        await this.app.browser.back();
 
-        app().browser().forward();
+        await this.app.browser.forward();
 
-        app().browser().refresh();
+        await this.app.browser.refresh();
     }
 
     @Test
-    public void getTabTitle() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
+    async getTabTitle() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/');
 
-        Assert.assertEquals(app().browser().getTitle(), "BELLATRIX Java test automation framework",);
+        Assert.isTrue((await this.app.browser.getTitle()).includes("Bellatrix Demos"));
     }
 
     @Test
-    public void printCurrentPageHtml() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
+    async printCurrentPageHtml() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/');
 
-        System.out.println(app().browser().getPageSource());
-    }
-
-    @Test
-    @Ignore
-    public void switchToFrame() {
-        app().navigate().to("http://demos.bellatrix.solutions/");
-
-        var frame = app().create().byId(Frame.class, "myFrameId");
-        app().browser().switchToFrame(frame);
-
-        var myButton = frame.createById(Button.class, "purchaseBtnId");
-
-        myButton.click();
-
-        app().browser().switchToDefault();
+        console.log(await this.app.browser.getPageSource());
     }
 }
 ```
 
 Explanations
 ------------
-BELLATRIX gives you an interface to most common operations for controlling the started browser through the **browser** method.
-```java
-app().browser().waitUntilPageLoadsCompletely();
-```
-Sometimes, some AJAX async calls are not caught natively by **WebDriver**. So you can use the BELLATRIX browser service's method **waitUntilPageLoadsCompletely** which waits for these calls automatically to finish. Keep in mind that usually this is not necessary since BELLATRIX has a complex built-in mechanism for handling element waits.
-```java
-System.out.println(app().browser().getUrl());
+BELLATRIX gives you an interface to most common operations for controlling the started browser through the **browser** property.
+
+```typescript
+await this.app.browser.getUrl();
 ```
 Get the current tab URL.
-```java
-app().browser().maximize();
-```
-Maximizes the browser.
-```java
-app().browser().back();
+```typescript
+await this.app.browser.back();
 ```
 Simulates clicking the browser's back button.
-```java
-app().browser().forward();
+```typescript
+await this.app.browser.forward();
 ```
 Simulates clicking the browser's forward button.
-```java
-app().browser().refresh();
+```typescript
+await this.app.browser.refresh();
 ```
 Simulates clicking the browser's refresh button.
-```java
-Assert.assertEquals(app().browser().getTitle(), "BELLATRIX Java test automation framework");
+```typescript
+await this.app.browser.getTitle();
 ```
 Get the current tab title.
-```java
-System.out.println(app().browser().getPageSource());
+```typescript
+await this.app.browser.getPageSource();
 ```
 Get the current page's HTML source.
-```java
-var frame = app().create().byId(Frame.class, "myFrameId");
-app().browser().switchToFrame(frame);
-var myButton = frame.createById(Button.class, "purchaseBtnId");
-```
-To work with elements inside a frame, you should switch to it first. Search for the button inside the frame element. Of course, once you switched to frame, you can create the element through a **create().by** method too.
-```java
-app().browser().switchToDefault();
-```
-To continue searching in the whole page, you need to switch to default again. It is the same process of how you work with **WebDriver**.

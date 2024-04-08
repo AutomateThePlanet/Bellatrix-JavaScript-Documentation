@@ -22,13 +22,17 @@ You need to make sure that you have navigated to the desired web page. Get all c
 Includes only the actions that you should be able to do with the specific componet and nothing more.
 [**Learn more**](web-components).
 
-### Web Extendability ###
+### Switching Between Playwright and Selenium ###
+Seamless switching between Playwright and Selenium engines.
+[**Learn more**](selenium-and-playwright).
+
+<!-- ### Web Extendability ###
 Execute your code on each element action, add additional logic to core framework methods and easily set anything to file configuration. Check all extensibility options:
 
 - [**Plugin hooks**](extensibility-test-workflow-hooks)
 - [**Plugins**](extensibility-custom-test-workflow-plugins)
 - [**Component action hooks**](extensibility-component-action-hooks)
-- [**Extend existing components**](extensibility-extend-existing-components)
+- [**Extend existing components**](extensibility-extend-existing-components) -->
 
 
 

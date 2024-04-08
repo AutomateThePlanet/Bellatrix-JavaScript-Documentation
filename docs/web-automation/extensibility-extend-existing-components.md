@@ -5,11 +5,14 @@ excerpt: "Learn how to extend BELLATRIX web components."
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-extend-existing-components/
-anchors:
-  example: Example
-  explanations: Explanations
+# anchors:
+#   example: Example
+#   explanations: Explanations
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 public class ExtendExistingComponent extends WebTest {
@@ -77,4 +80,4 @@ Instead of the regular button, we create the **ExtendedButton**, this way we can
 ```java
 proceedToCheckout.submitButtonWithEnter();
 ```
-Use the new custom method provided by the **ExtendedButton** class.
+Use the new custom method provided by the **ExtendedButton** class. -->

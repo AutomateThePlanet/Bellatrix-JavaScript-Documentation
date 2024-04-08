@@ -5,13 +5,16 @@ excerpt: "Learn how to use the BELLATRIX layout testing library."
 date:   2018-06-22 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/layout-testing/
-anchors:
-  example: Example
-  explanations: Explanations
-  bdd-logging: BDD Logging
-  all-available-layout-validation-methods: All Available Methods
+# anchors:
+#   example: Example
+#   explanations: Explanations
+#   bdd-logging: BDD Logging
+#   all-available-layout-validation-methods: All Available Methods
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 @ExecutionBrowser(browser = Browser.CHROME, width = 1280, height = 1024, lifecycle = Lifecycle.RESTART_EVERY_TIME)
@@ -155,7 +158,7 @@ BDD Logging
 All layout assertion methods have full BDD logging support.
 <!-- Below you can find the generated BDD log. Of course if you use BELLATRIX page objects the log looks even better as mentioned in previous chapters. -->
 
-All Available Layout Validation Methods
+<!-- All Available Layout Validation Methods
 --------------------------------------
 
 ### Validation Properties ###
@@ -186,4 +189,4 @@ All Available Layout Validation Methods
 - alignedVerticallyBottom
 
 ### Build Validation ###
-- validate
+- validate -->

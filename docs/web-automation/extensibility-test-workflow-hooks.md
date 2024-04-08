@@ -5,11 +5,14 @@ excerpt: "Learn how to extend the BELLATRIX plugins using hooks."
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-test-workflow-hooks/
-anchors:
-  example: Example
-  explanations: Explanations
+# anchors:
+#   example: Example
+#   explanations: Explanations
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 public class TestWorkflowHooksTests extends WebTest {
@@ -134,4 +137,4 @@ public void afterMethod() {
     // ...
 }
 ```
-Executes a logic after each test in the test class.
+Executes a logic after each test in the test class. -->

@@ -11,46 +11,46 @@ anchors:
 ---
 Example
 -------
-```java
-public class JavaScriptServiceTests extends WebTest {
+```typescript
+@TestClass
+class JavaScriptServiceTests extends WebTest {
     @Test
-    public void fillUpAllFields() {
-        app().navigate().to("http://demos.bellatrix.solutions/my-account/");
+    async fillUpAllFields() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/my-account/');
 
-        app().script().execute("document.getElementById('username').value = 'BELLATRIX';");
+        await this.app.script.execute(`document.getElementById('username').value = 'BELLATRIX';`);
 
-        app().create().byId(PasswordInput.class, "password").setPassword("Gorgeous");
-        var button = app().create().byClassContaining(Button.class, "woocommerce-Button button");
-        
-        app().script().execute("arguments[0].click();", button);
+        await this.app.create(PasswordField).byId('password').setPassword('Gorgeous');
+        const button = this.app.create(Button)byClassContaining('woocomerce-Button button');
+
+        await button.evaluate('el => el.click();');
     }
 
     @Test
-    @Ignore
-    public void getElementStyle() {
-        app().navigate().to("http://demos.bellatrix.solutions/my-account/");
+    async getElementStyle() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/my-account/');
 
-        var resultsCount = app().create().byClassContaining(WebComponent.class, "woocommerce-result-count");
+        const resultsCount = this.app.create(WebComponent).byClassContaining('woocomerce-result-count');
+        const fontSize = await resultsCount.evaluate<string>('el => el.style.font-size;');
 
-        String fontSize = app().script().execute("return arguments[0].style.font-size", resultsCount.getWrappedElement());
-
-        Assert.assertEquals(fontSize, "14px");
+        Assert.areEqual(fontSize, '14px');
     }
 }
 ```
 
 Explanations
 ------------
-BELLATRIX gives you an interface for easier execution of JavaScript code using the **script** method. You need to make sure that you have navigated to the desired web page.
-```java
-app().script().execute("document.getElementById('username').value = 'BELLATRIX';");
+BELLATRIX gives you an interface for easier execution of JavaScript code using the **script** property. You need to make sure that you have navigated to the desired web page.
+```typescript
+await this.app.script.execute(`document.getElementById('username').value = 'BELLATRIX';`);
 ```
 Execute a JavaScript code on the page. Here we find an element with id = 'firstName' and sets its value to 'BELLATRIX'.
-```java
-app().script().execute("arguments[0].click();", button);
+```typescript
+await button.evaluate('el => el.click();');
 ```
-It is possible to pass an element, and the script executes on it.
-```java
-String fontSize = app().script().execute("return arguments[0].style.font-size", resultsCount.getWrappedElement());
+There is no need to use the script service, as every component has evaluate() method that automatically adds the wrapped element as an argument.
+```typescript
+const fontSize = await resultsCount.evaluate<string>('el => el.style.font-size;');
+Assert.areEqual(fontSize, '14px');
 ```
 Get the results from a script. After that, get the value for a specific style and assert it.

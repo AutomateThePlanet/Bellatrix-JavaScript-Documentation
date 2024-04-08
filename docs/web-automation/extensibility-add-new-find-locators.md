@@ -5,12 +5,14 @@ excerpt: "Learn how to extend BELLATRIX adding new custom find locators."
 date:   2018-10-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-add-new-find-locators/
-anchors:
-  introduction: Introduction
-  example: Example
-  usage: Usage
+# anchors:
+#   introduction: Introduction
+#   example: Example
+#   usage: Usage
 ---
-Introduction
+Coming Soon
+-------
+<!-- Introduction
 ------------
 Imagine that you want to create a new locator for finding all components with ID starting with specific value. First, you need to create a new 'FindStrategy' class.
 
@@ -33,7 +35,7 @@ public class IdStartingWithFindStrategy extends FindStrategy {
     }
 }
 ```
-In the **convert** method, we use a standard WebDriver **By** locator, and in this case we implement our requirements through a little CSS.
+In the **convert** method, we use a standard WebDriver **By** locator, and in this case we implement our requirements through a little CSS. -->
 
 <!-- To ease the usage of the locator, we need to create methods in ComponentCreateService and WebComponent classes.
 
@@ -56,7 +58,7 @@ public static class ElementRepositoryExtensions
 }
 ``` -->
 
-Usage
+<!-- Usage
 ------------
 ```java
 public class NewFindLocatorsTests extends WebTest {
@@ -73,4 +75,4 @@ public class NewFindLocatorsTests extends WebTest {
 You can use the new **FindStrategy** in the default **create().by** and **create().allBy** methods like in this example:
 ```java
 var promotionsLink = app().create().by(Anchor.class, new IdStartingWithFindStrategy("promo"));
-```
+``` -->

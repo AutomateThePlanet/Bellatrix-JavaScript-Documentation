@@ -11,53 +11,41 @@ anchors:
 ---
 Example
 -------
-```java
+```typescript
 @Test
-public void assertCartPageFields() {
-    app().navigate().to("http://demos.bellatrix.solutions/?add-to-cart=26");
+async assertCartPageFields() {
+  await this.app.navigation.navigate('https://demos.bellatrix.solutions/?add-to-cart=26');
+  await this.app.navigation.navigate('https://demos.bellatrix.solutions/cart/');
 
-    app().navigate().to("http://demos.bellatrix.solutions/cart/");
+  const couponCodeTextField = this.app.create(TextField).byId('coupon_code');
+  Assert.areEqual(await couponCodeTextField.getPlaceholder(), 'Coupon code');
 
-    TextField couponCodeTextField = app().create().byId(TextField.class, "coupon_code");
+  const applyCouponButton = this.app.create(Button).byValueContaining('Apply coupon');
+  Assert.isTrue(await applyCouponButton.isVisible());
 
-    Assert.assertEquals(couponCodeTextField.getPlaceholder(), "Coupon code");
+  const messageAlert = this.app.create(Div).byClassContaining('woocommerce-message');
+  Assert.isFalse(await messageAlert.isVisible());
 
-    Button applyCouponButton = app().create().byValueContaining(Button.class, "Apply coupon");
+  const updateCart = this.app.create(Button).byValueContaining('Update cart');
+  Assert.isTrue(await updateCart.isVisible());
 
-    Assert.assertTrue(applyCouponButton.isVisible());
+  const totalSpan = this.app.create(Span).byXpath(`//*[@class='order-total']//span`);
+  Assert.areEqual(await totalSpan.getInnerText(), '120.00€');
 
-    Div messageAlert = app().create().byClassContaining(Div.class, "woocommerce-message");
-
-    Assert.assertFalse(messageAlert.isVisible());
-
-    Button updateCart = app().create().byValueContaining(Button.class, "Update cart");
-
-    Assert.assertTrue(updateCart.isDisabled());
-
-    Span totalSpan = app().create().byXPath(Span.class, "//*[@class='order-total']//span");
-
-    Assert.assertEquals(totalSpan.getText(), "120.00€");
-
-    SoftAssert multipleAssert = new SoftAssert();
-    multipleAssert.assertEquals(totalSpan.getText(), "120.00€");
-    multipleAssert.assertTrue(updateCart.isDisabled());
-    multipleAssert.assertAll();
+  Assert.multiple(
+      async () => Assert.areEqual(await totalSpan.getInnerText(), '120.00€'),
+      async () => Assert.isTrue(await updateCart.isDisabled())
+  );
 }
 ```
 
 Explanations
 ------------
-```java
-Assert.assertEquals(couponCodeTextField.getPlaceholder(), "Coupon code");
+```typescript
+Assert.areEqual(await couponCodeTextField.getPlaceholder(), 'Coupon code');
 ```
-We can assert the default text in the coupon text fiend through the BELLATRIX component **getPlaceholder** method. The different BELLATRIX web component classes contain lots of these methods which are a representation of the most important HTML element attributes. The biggest drawback of using vanilla assertions is that the messages displayed on failure are not meaningful at all. This is so because most unit testing frameworks are created for much simpler and shorter unit tests. In next chapter, there is information how BELLATRIX solves the problems with the introduction of **validate** methods. If the bellow assertion fails the following message is displayed:
-```
-Expected :Discount code
-Actual   :Coupon code
-```
-You can guess what happened, but you do not have information which element failed and on which page.
-```java
-Assert.assertTrue(applyCouponButton.isVisible());
+```typescript
+async () => Assert.isTrue(await updateCart.isDisabled())
 ```
 Here we assert that the apply coupon button is visible on the page. On fail the following message is displayed:
 ```
@@ -65,28 +53,28 @@ Expected :true
 Actual   :false
 ```
 Cannot learn much about what happened.
-```java
-Div messageAlert = app().create().byClassContaining(Div.class, "woocommerce-message");
-Assert.assertFalse(messageAlert.isVisible());
+```typescript
+const messageAlert = this.app.create(Div).byClassContaining('woocommerce-message');
+Assert.isFalse(await messageAlert.isVisible());
 ```
 Since there are no validation errors, verify that the message div is not visible.
-```java
-Button updateCart = app().create().byValueContaining(Button.class, "Update cart");
-Assert.assertTrue(updateCart.isDisabled());
+```typescript
+const updateCart = this.app.create(Button).byValueContaining('Update cart');
+Assert.isTrue(await updateCart.isVisible());
 ```
 We have not made any changes to the added products so the update cart button should be disabled.
-```java
-Span totalSpan = app().create().byXPath(Span.class, "//*[@class='order-total']//span");
-Assert.assertEquals(totalSpan.getText(), "120.00€");
+```typescript
+const totalSpan = this.app.create(Span).byXpath(`//*[@class='order-total']//span`);
+Assert.areEqual(await totalSpan.getInnerText(), '120.00€');
 ```
 We check the total price contained in the order-total span HTML element.
 
-```java
-SoftAssert multipleAssert = new SoftAssert();
-multipleAssert.assertEquals(totalSpan.getText(), "120.00€");
-multipleAssert.assertTrue(updateCart.isDisabled());
-multipleAssert.assertAll();
+```typescript
+Assert.multiple(
+    async () => Assert.areEqual(await totalSpan.getInnerText(), '120.00€'),
+    async () => Assert.isTrue(await updateCart.isDisabled())
+);
 ```
 You can execute multiple assertions failing only once viewing all results.
 
-One more thing you need to keep in mind is that normal assertion methods do not include BDD logging and any available hooks. BELLATRIX provides you with a full BDD logging support for **validate** assertions and gives you a way to hook your logic in multiple places.
+<!-- One more thing you need to keep in mind is that normal assertion methods do not include BDD logging and any available hooks. BELLATRIX provides you with a full BDD logging support for **validate** assertions and gives you a way to hook your logic in multiple places. -->

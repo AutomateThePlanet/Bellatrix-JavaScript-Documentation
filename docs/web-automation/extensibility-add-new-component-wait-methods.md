@@ -5,12 +5,14 @@ excerpt: "Learn how to extend BELLATRIX adding new component wait methods."
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-add-new-component-wait-methods/
-anchors:
-  introduction: Introduction
-  example: Example
-  usage: Usage
+# anchors:
+#   introduction: Introduction
+#   example: Example
+#   usage: Usage
 ---
-Introduction
+Coming Soon
+-------
+<!-- Introduction
 ------------
 Imagine that you want to wait for an element to have a specific style. First, you need to create a new 'WaitStrategy' class that inheriting the **WaitStrategy** class.
 
@@ -45,7 +47,7 @@ public class ToHaveStyleWaitStrategy extends WaitStrategy {
     }
 }
 ```
-Find the element and check the current value in the style attribute. The internal **waitUntil** will wait until the value changes in the specified time.
+Find the element and check the current value in the style attribute. The internal **waitUntil** will wait until the value changes in the specified time. -->
 
 <!-- The next and final step is to create an extension method for all UI elements.
 
@@ -63,7 +65,7 @@ public static class UntilElementsExtensions
 ```
 After UntilHasStyle is created, it is important to be passed on to the element’s EnsureState method. -->
 
-Usage
+<!-- Usage
 ------------
 ```java
 public class NewElementWaitTests extends WebTest {
@@ -82,4 +84,4 @@ After that, you can use the new wait method as shown in the example:
 ```java
 var promotionsLink = app().create().byLinkText(Anchor.class, "promo");
 promotionsLink.ensureState(ToHaveStyleWaitStrategy.of("padding: 1.618em 1em"));
-```
+``` -->

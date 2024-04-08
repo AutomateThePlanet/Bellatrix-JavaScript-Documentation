@@ -5,12 +5,15 @@ excerpt: "Learn how to plugin your logic in BELLATRIX test workflow using plugin
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-custom-test-workflow-plugins/
-anchors:
-  example: Example
-  explanations: Explanations
-  screenshot-and-video-generation-plugins: Screenshot and Video Generation Plugins
+# anchors:
+#   example: Example
+#   explanations: Explanations
+#   screenshot-and-video-generation-plugins: Screenshot and Video Generation Plugins
 ---
-Introduction
+Coming Soon
+-------
+
+<!-- Introduction
 ------------
 The test workflow plugins are way to execute your logic before each test. For example- taking screenshots or videos on test failures, creating custom logs and so on. In the example you can find a plugin that integrates a **ManualTestCase** annotation for the automated tests, containing the ID to the corresponding manual test case. The main purpose of the test workflow is to fail the test if the **ManualTestCase** attribute is not set.
  
@@ -118,4 +121,4 @@ public class AllureWorkflowPlugin extends Plugin {
 
     // rest of the code...
 }
-```
+``` -->

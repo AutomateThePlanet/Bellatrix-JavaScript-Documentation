@@ -5,11 +5,14 @@ excerpt: "Learn how to extend BELLATRIX web components using extension methods."
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/extensibility-extend-existing-components-extension-methods/
-anchors:
-  example: Example
-  explanations: Explanations
+# anchors:
+#   example: Example
+#   explanations: Explanations
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```csharp
 [TestClass]
@@ -86,4 +89,4 @@ To use the additional method you created, add a using statement to the extension
 ```csharp
 proceedToCheckout.SubmitButtonWithEnter();
 ```
-Use the custom added submit button behaviour through 'Enter' key.
+Use the custom added submit button behaviour through 'Enter' key. -->

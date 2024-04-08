@@ -5,11 +5,14 @@ excerpt: "Learn how to use the BELLATRIX logging library."
 date:   2018-06-23 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/logging/
-anchors:
-  example: Example
-  explanations: Explanations
+# anchors:
+#   example: Example
+#   explanations: Explanations
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 public class LoggingTests extends WebTest {
@@ -52,4 +55,4 @@ before adding Falcon 9 rocket to cart.
 focusing Anchor (data-product_id containing 28)
 clicking Anchor (data-product_id containing 28)
 clicking Anchor (class containing added_to_cart wc-forward)
-```
+``` -->

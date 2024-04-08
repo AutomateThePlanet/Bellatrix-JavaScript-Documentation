@@ -5,12 +5,15 @@ excerpt: "Learn how to use BELLATRIX cross-platform video recording."
 date:   2018-06-22 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/troubleshooting-video-recording/
-anchors:
-  example: Example
-  explanations: Explanations
-  configuration: Configuration
+# anchors:
+#   example: Example
+#   explanations: Explanations
+#   configuration: Configuration
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 public class FullPageScreenshotsOnFailTests extends WebTest {
@@ -36,4 +39,4 @@ If you open the **testFrameworkSettings.\<env\>.json** file, you find the screen
     "videosSaveLocation": "user.home/BELLATRIX/Videos"
 }
 ```
-You can turn off the making of videos for all tests and specify where the videos to be saved. In the extensibility chapters read more about how you can create custom video recorder or change the saving strategy.
+You can turn off the making of videos for all tests and specify where the videos to be saved. In the extensibility chapters read more about how you can create custom video recorder or change the saving strategy. -->

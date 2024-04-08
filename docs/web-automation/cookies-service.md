@@ -11,82 +11,82 @@ anchors:
 ---
 Example
 -------
-```java
-public class CookiesServiceTests extends WebTest
-{
+```typescript
+@TestClass
+class CookiesServiceTests extends WebTest {
     @Test
-    public void getAllCookies() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async getAllCookies() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        app().cookies().addCookie("woocommerce_items_in_cart1", "3");
-        app().cookies().addCookie("woocommerce_items_in_cart2", "3");
-        app().cookies().addCookie("woocommerce_items_in_cart3", "3");
-        
-        var cookies = app().cookies().getAllCookies();
-        
-        Assert.assertEquals(cookies.size(), 3);
+        await this.app.cookies.addCookie('woocomerce_items_in_cart1', '3');
+        await this.app.cookies.addCookie('woocomerce_items_in_cart2', '3');
+        await this.app.cookies.addCookie('woocomerce_items_in_cart3', '3');
+
+        const cookies = await this.app.cookies.getAllCookies();
+
+        Assert.areEqual(cookies.length, 3);
     }
 
     @Test
-    public void getSpecificCookie() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async getSpecificCookie() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        app().cookies().addCookie("woocommerce_items_in_cart", "3");
+        await this.app.cookies.addCookie('woocomerce_items_in_cart', '3');
 
-        var itemsInCartCookie = app().cookies().getCookie("woocommerce_items_in_cart");
+        const itemsInCartCookie = await this.app.cookies.getCookie('woocomerce_items_in_cart');
 
-        Assert.assertEquals(itemsInCartCookie.getValue(), "3");
+        Assert.areEqual(itemsInCartCookie?.value, '3');
     }
 
     @Test
-    public void deleteAllCookies() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async deleteAllCookies() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        var protonRocketAddToCartBtn = app().create().allByInnerTextContaining(Anchor.class, "Add to cart").stream().findFirst().orElse(null);
-        protonRocketAddToCartBtn.click();
+        const protonRocketAddToCartBtn = this.app.create(Anchor).allByInnerTextContaining('Add to cart').get(0);
+        await protonRocketAddToCartBtn.click();
 
-        app().cookies().deleteAllCookies();
+        await this.app.cookies.clearCookies();
     }
 
     @Test
-    public void deleteSpecificCookie() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async deleteSpecificCookie() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        var protonRocketAddToCartBtn = app().create().allByInnerTextContaining(Anchor.class, "Add to cart").stream().findFirst().orElse(null);
-        protonRocketAddToCartBtn.click();
+        const protonRocketAddToCartBtn = this.app.create(Anchor).allByInnerTextContaining('Add to cart').get(0);
+        await protonRocketAddToCartBtn.click();
 
-        app().cookies().deleteCookie("woocommerce_items_in_cart");
+        await this.app.cookies.deleteCookie('woocomerce_items_in_cart');
     }
 
     @Test
-    public void addNewCookie() {
-        app().navigate().to("http://demos.bellatrix.solutions/welcome/");
+    async addNewCookie() {
+        await this.app.navigation.navigate('https://demos.bellatrix.solutions/welcome/');
 
-        app().cookies().addCookie("woocommerce_items_in_cart", "3");
+        await this.app.cookies.addCookie('woocomerce_items_in_cart1', '3');
     }
 }
 ```
 
 Explanations
 ------------
-BELLATRIX gives you an interface for easier work with cookies using the **cookies** method. You need to make sure that you have navigated to the desired web page.
-```java
-var cookies = app().cookies().getAllCookies();
+BELLATRIX gives you an interface for easier work with cookies using the **cookies** property. You need to make sure that you have navigated to the desired web page.
+```typescript
+await this.app.cookies.getAllCookies();
 ```
 Get all cookies.
-```java
-var itemsInCartCookie = app().cookies().getCookie("woocommerce_items_in_cart");
+```typescript
+await this.app.cookies.getCookie('woocomerce_items_in_cart');
 ```
 Get a specific cookie by name.
-```java
-app().cookies().deleteAllCookies();
+```typescript
+await this.app.cookies.clearCookies();
 ```
 Delete all cookies.
-```java
-app().cookies().deleteCookie("woocommerce_items_in_cart");
+```typescript
+await this.app.cookies.deleteCookie('woocomerce_items_in_cart');
 ```
 Delete a specific cookie by name.
-```java
-app().cookies().addCookie("woocommerce_items_in_cart", "3");
+```typescript
+await this.app.cookies.addCookie('woocomerce_items_in_cart1', '3');
 ```
 Add a new cookie.

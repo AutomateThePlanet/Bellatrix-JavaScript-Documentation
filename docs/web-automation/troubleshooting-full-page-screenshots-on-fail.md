@@ -5,12 +5,15 @@ excerpt: "Learn how to generate full page screenshots on test's fail."
 date:   2018-06-22 06:50:17 +0200
 parent: web-automation
 permalink: /web-automation/troubleshooting-full-page-screenshots-on-fail/
-anchors:
-  example: Example
-  explanations: Explanations
-  configuration: Configuration
+# anchors:
+#   example: Example
+#   explanations: Explanations
+#   configuration: Configuration
 ---
-Example
+Coming Soon
+-------
+
+<!-- Example
 -------
 ```java
 public class FullPageScreenshotsOnFailTests extends WebTest {
@@ -36,4 +39,4 @@ If you open the **testFrameworkSettings.\<env\>.json** file, you find the screen
     "screenshotsSaveLocation": "user.home/BELLATRIX/Screenshots"
 }
 ```
-You can turn off the making of screenshots for all tests and specify where the screenshots to be saved. In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy.
+You can turn off the making of screenshots for all tests and specify where the screenshots to be saved. In the extensibility chapters read more about how you can create different screenshots engine or change the saving strategy. -->
