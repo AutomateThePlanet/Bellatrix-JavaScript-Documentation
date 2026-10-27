@@ -13,18 +13,18 @@ Control browsers with BELLATRIX web module. Ability to restart every time to mak
 
 
 ### Wait for Components ###
-Perform an action against an element only when a specific condition is true. Waits for the element to exist or not, to be visible, clickable, disabled. [**Learn more**](/wait-for-components.md).
+Perform an action against an element only when a specific condition is true. Waits for the element to exist or not, to be visible, clickable, disabled. [**Learn more**](wait-for-components/).
 
 ### Cookies Service ###
-You need to make sure that you have navigated to the desired web page. Get all cookies, Get a specific cookie by name, Delete all cookies, Delete a specific cookie by name. Add a new cookie. [**Learn more**](cookies-service).
+You need to make sure that you have navigated to the desired web page. Get all cookies, Get a specific cookie by name, Delete all cookies, Delete a specific cookie by name. Add a new cookie. [**Learn more**](cookies-service/).
 
 ### 30+ Web Components ###
 Includes only the actions that you should be able to do with the specific componet and nothing more.
-[**Learn more**](web-components).
+[**Learn more**](web-components/).
 
 ### Switching Between Playwright and Selenium ###
 Seamless switching between Playwright and Selenium engines.
-[**Learn more**](selenium-and-playwright).
+[**Learn more**](selenium-and-playwright/).
 
 <!-- ### Web Extendability ###
 Execute your code on each element action, add additional logic to core framework methods and easily set anything to file configuration. Check all extensibility options:
